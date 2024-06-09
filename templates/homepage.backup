@@ -1,0 +1,45 @@
+{% extends 'base_layout.html'%}
+
+
+
+{% block content %}
+
+<form class="form-inline my-2 my-lg-0" method="POST" action="search/">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" method="POST">
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="s_user" value="user" autocomplete="off" checked> Users
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="s_project" value="project" autocomplete="off"> Projects
+  </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="s_blog" value="blog" autocomplete="off"> Articles
+    </labelsubmit>
+      </div>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" action = "search/" method="POST">Search</button>
+
+</form>
+
+<br>
+
+{% if user.is_authenticated %}
+{{name}}
+<li> <a href="projects/createProject"> Add Project </a></li>
+<div class='container'>
+  <h1 class ="text-center pd-3"/>
+    <h2>Your Projects</h2>
+      {% for project in projects.all %}
+      <a href ="{% url 'projectDetail' project.slug %}"><h3>{{ project.title}}<h3/><a/>
+        <br>
+        {{project.date}}
+        <br>
+        Abstract:
+        <p>{{ project.abstract }}</p>
+      <br>
+      {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
